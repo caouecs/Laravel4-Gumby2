@@ -1,0 +1,22 @@
+{
+    "name": "caouecs/gumby2",
+    "description": "Gumby2 Framework in Laravel 4",
+    "keywords": ["gumby2", "laravel"],
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "caouecs",
+            "email": "caouecs@caouecs.net"
+        }
+    ],
+    "require": {
+        "php": ">=5.3.0",
+        "illuminate/support": "4.1.x"
+    },
+    "autoload": {
+        "psr-0": {
+            "Caouecs\\Gumby2": "src/"
+        }
+    },
+    "minimum-stability": "dev"
+}
