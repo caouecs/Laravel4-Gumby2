@@ -3,7 +3,7 @@
 namespace Caouecs\Gumby2;
 use \HTML;
 
-class Image {
+class Image extends Core {
 
     /**
      * Class of image
@@ -44,6 +44,14 @@ class Image {
      * @var boolean
      */
     protected $retina = false;
+
+    /**
+     * Link on image
+     *
+     * @access protected
+     * @var string
+     */
+    protected $link = null;
 
     /**
      * Call an image
@@ -116,9 +124,9 @@ class Image {
     {
         $image = new Image;
 
-        $image->class = (string) $class;
+        $image->class = $class;
         $image->url = $url;
-        $image->alt = (string) $alt;
+        $image->alt = e($alt);
         $image->attributes = $attributes;
 
         return $image;
@@ -147,12 +155,22 @@ class Image {
     {
         $attributes = Helpers::add_class($this->attributes, $this->class." image");
 
-        $res = '<div'.HTML::attributes($attributes).'>
-                <img src="'.$this->url.'" alt="'.$this->alt.'" ';
+        $res = '<div'.HTML::attributes($attributes).'>';
+
+        // link
+        if ($this->link != null)
+            $res .= '<a href="'.$this->link.'">';
+
+        $res .= '<img src="'.$this->url.'" alt="'.$this->alt.'" ';
         if ($this->retina === true)
             $res .= 'gumby-retina';
-        $res .= ' />
-            </div>';
+        $res .= ' />';
+
+        // link
+        if ($this->link != null)
+            $res .= '</a>';
+
+        $res .= '</div>';
 
         return $res;
     }

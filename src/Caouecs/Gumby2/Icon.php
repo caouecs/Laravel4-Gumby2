@@ -2,7 +2,7 @@
 
 namespace Caouecs\Gumby2;
 
-class Icon {
+class Icon extends Core {
 
     /**
      * Name of icon
@@ -10,8 +10,15 @@ class Icon {
      * @access protected
      * @var string
      */
-    protected $name;
+    protected $name = null;
 
+    /**
+     * Link on Icon
+     *
+     * @access protected
+     * @var string
+     */
+    protected $link = null;
 
     /**
      * Call an icon
@@ -37,7 +44,7 @@ class Icon {
     {
         $icon = new Icon;
 
-        $icon->name = (string) $name;
+        $icon->name = e($name);
 
         return $icon;
     }
@@ -50,6 +57,9 @@ class Icon {
      */
     public function __toString()
     {
-        return '<i class="icon-'.(string) $this->name.'"></i>';
+        if ($this->link != null)
+            return '<a href="'.$this->link.'"><i class="icon-'.$this->name.'"></i></a>';
+
+        return '<i class="icon-'.$this->name.'"></i>';
     }
 }

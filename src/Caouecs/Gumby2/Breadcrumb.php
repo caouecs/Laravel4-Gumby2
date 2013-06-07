@@ -47,7 +47,7 @@ class Breadcrumb {
      */
     public function add($title, $url = null)
     {
-        $this->elements[] = array("title" => (string) $title, "url" => (string) $url);
+        $this->elements[] = array("title" => e($title), "url" => (string) $url);
 
         return $this;
     }

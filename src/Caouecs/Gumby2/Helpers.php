@@ -15,8 +15,11 @@ class Helpers {
      */
     public static function add_class($array, $value, $key = 'class')
     {
-        $array[$key] = isset($array[$key]) ? $array[$key].' '.$value : $value;
+        // function of Laravel4
+        return array_add($array, $key, $value);
 
-        return $array;
+        /*$array[$key] = isset($array[$key]) ? $array[$key].' '.$value : $value;
+
+        return $array;*/
     }
 }

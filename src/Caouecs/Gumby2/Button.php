@@ -45,7 +45,7 @@ class Button {
      * @param array $params Params of method
      * @return string
      */
-    public static function __callStatic($method, $params)
+    public static function __callStatic($method, $params = '')
     {
         $class = null;
 
@@ -118,7 +118,7 @@ class Button {
      * @param array $attributes Attributes of button
      * @return string
      */
-    protected static function show($class, $message, $attributes = array())
+    protected static function show($class, $message = '', $attributes = array())
     {
         $button = new Button;
 
@@ -130,16 +130,16 @@ class Button {
     }
 
     /**
-     * Add icon
+     * Add icon at left
      *
      * @access public
      * @param string $icon Name of icon
      * @param boolean $append Situation of icon (true = before, false = after)
      * @return \Button
      */
-    public function icon($icon, $append = true)
+    public function append($icon, $append = true)
     {
-        $icon = " entypo icon-".(string) $icon;
+        $icon = " entypo icon-".e($icon);
 
         if ($append == true)
             $icon .= " icon-left ";
@@ -152,27 +152,15 @@ class Button {
     }
 
     /**
-     * Add icon at left
-     *
-     * @access public
-     * @param string $icon Name of icon
-     * @return \Button
-     */
-    public function icon_left($icon)
-    {
-        return $this->icon($icon, true);
-    }
-
-    /**
      * Add icon at right
      *
      * @access public
      * @param string $icon Name of icon
      * @return \Button
      */
-    public function icon_right($icon)
+    public function prepend($icon)
     {
-        return $this->icon($icon, false);
+        return $this->append($icon, false);
     }
 
     /**

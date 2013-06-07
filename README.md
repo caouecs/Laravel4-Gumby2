@@ -7,7 +7,7 @@ This package includes [Gumby2 Framework](http://www.gumbyframework.com) function
 For the moment
 ---
 
-Don't use, it's under construction.
+Just for test
 
 
 Elements
@@ -23,10 +23,10 @@ Elements
   * Button::xlarge_pillleft_warning("My text")
 * Form (not finish)
 * Icon
-  * Icon::github()
+  * Icon::github()->link("/welcome")
 * Image
   * Image::rounded_six("/img/my_photo.png")
 * Label
   * Label::success("My text")
 * Tabs
-  * Tabs::show(array("class" => "splendid"))->add("Title 1", "Texte 1")->add("Title 2", "Texte 2", true)
+  * Tabs::normal(array("class" => "splendid"))->add("Title 1", "Texte 1")->add("Title 2", "Texte 2", true)
