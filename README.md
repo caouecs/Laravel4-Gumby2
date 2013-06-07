@@ -30,3 +30,4 @@ Elements
   * Label::success("My text")
 * Tabs
   * Tabs::normal(array("class" => "splendid"))->add("Title 1", "Texte 1")->add("Title 2", "Texte 2", true)
+* Valign

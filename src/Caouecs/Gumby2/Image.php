@@ -86,9 +86,6 @@ class Image extends Core {
             }
         }
 
-        if (!isset($class['class']))
-            $class['class'] = "rounded";
-
         array_unshift($params, implode(" ", $class));
 
         return call_user_func_array('static::show', $params);
@@ -153,6 +150,7 @@ class Image extends Core {
      */
     public function __toString()
     {
+
         $attributes = Helpers::add_class($this->attributes, $this->class." image");
 
         $res = '<div'.HTML::attributes($attributes).'>';

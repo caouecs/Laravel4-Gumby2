@@ -55,8 +55,6 @@ class Tabs {
      */
     public static function __callStatic($method, $params)
     {
-        $class = null;
-
         $array_classes = array("normal", "pill", "vertical");
         $array_columns = array("one", "two", "three", "four", "five", "six", "seven", "eight", "nine", "ten", "eleven", "twelve", "thirteen", "fourteen", "fifteen", "sixteen");
 
@@ -69,30 +67,27 @@ class Tabs {
         if ($array_methods[0] == "normal")
             $array_methods[0] = null;
 
-        $class['class'] = $array_methods[0];
-
-
         // vertical, you must indicate columns of ul and div
         if ($array_methods[0] == "vertical")
         {
-            if (isset($array_methods[1]) && in_array($array_methods[1], $array_columns) && isset($array_methods[2]) && in_array($array_methods[2], $array_columns))
+            if (
+                !isset($array_methods[1]) or !isset($array_methods[2]) or
+                !in_array($array_methods[1], $array_columns) or !in_array($array_methods[2], $array_columns)
+            )
             {
-                $class['ul'] = $array_methods[1];
-                $class['div'] = $array_methods[2];
-            }
-            else
-            {
-                $class['ul'] = "four";
-                $class['div'] = "eight";
+                $array_methods[1] = "four";
+                $array_methods[2] = "eight";
             }
         }
         else
         {
-            $class['ul'] = null;
-            $class['div'] = null;
+            $array_methods[1] = null;
+            $array_methods[2] = null;
         }
 
-        array_unshift($params, implode(" ", $class));
+        array_unshift($params, $array_methods[2]);
+        array_unshift($params, $array_methods[1]);
+        array_unshift($params, $array_methods[0]);
 
         return call_user_func_array('static::show', $params);
 
@@ -147,9 +142,14 @@ class Tabs {
         if (empty($this->elements))
             return null;
 
+        $res = null;
+
         $attributes = Helpers::add_class($this->attributes, $this->class." tabs");
 
-        $res = '<div'.HTML::attributes($attributes).'>
+        if ($this->class == "vertical")
+            $res .= '<div class="row">';
+
+        $res .= '<div'.HTML::attributes($attributes).'>
             <ul class="tab-nav';
         // vertical
         if ($this->class == "vertical" && $this->ul != null)
@@ -179,6 +179,9 @@ class Tabs {
         }
 
         $res .= '</div>';
+
+        if ($this->class == "vertical")
+            $res .= '</div>';
 
         return $res;
     }
