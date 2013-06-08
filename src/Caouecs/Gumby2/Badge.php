@@ -1,6 +1,4 @@
-<?php
-
-namespace Caouecs\Gumby2;
+<?php namespace Caouecs\Gumby2;
 
 class Badge extends Indicator {
 
@@ -13,12 +11,12 @@ class Badge extends Indicator {
     protected $type = "badge";
 
     /**
-     * Html
+     * Tag
      *
      * @access protected
      * @var string
      */
-    protected $html = "span";
+    protected $tag = "span";
 
     /**
      * Create a new Badge

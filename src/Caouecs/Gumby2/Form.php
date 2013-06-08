@@ -1,6 +1,4 @@
-<?php
-
-namespace Caouecs\Gumby2;
+<?php namespace Caouecs\Gumby2;
 
 class Form extends \Illuminate\Support\Facades\Form {
 
@@ -18,5 +16,4 @@ class Form extends \Illuminate\Support\Facades\Form {
     {
         return parent::password($name, Helpers::add_class($options, "wide password input"));
     }
-
 }

@@ -1,6 +1,5 @@
-<?php
+<?php namespace Caouecs\Gumby2;
 
-namespace Caouecs\Gumby2;
 use \HTML;
 
 class Valign {
@@ -49,12 +48,15 @@ class Valign {
      * Img of valign
      *
      * @access public
-     * 
+     * @param string $path Path of image
+     * @param string $alt Alt of image
+     * @param string $class Class on image
+     * @param array $attributes Attributes on image
      * @return \Valign
      */
-    public function img($url, $alt = '', $class = "rounded", $attributes = array())
+    public function img($path, $alt = '', $class = "rounded", $attributes = array())
     {
-        $this->img = Image::custom($class, $url, $alt, $attributes);
+        $this->img = Image::custom($class, $path, $alt, $attributes);
 
         return $this;
     }
@@ -63,15 +65,16 @@ class Valign {
      * Text of valign
      *
      * @access public
-     * 
+     * @param string $text Text
+     * @param array $attributes Attributes on text
      * @return \Valign
      */
     public function text($text, $attributes = array())
     {
         $this->text = array(
-                "text" => $text,
-                "attributes" => $attributes
-            );
+            "text" => $text,
+            "attributes" => $attributes
+        );
 
         return $this;
     }
@@ -84,8 +87,9 @@ class Valign {
      */
     public function __toString()
     {
-        if (empty($this->img) or empty($this->text))
+        if (empty($this->img) or empty($this->text)) {
             return null;
+        }
 
         $attributes = Helpers::add_class($this->attributes, "valign row");
 

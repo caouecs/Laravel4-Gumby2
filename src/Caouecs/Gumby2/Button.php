@@ -1,6 +1,5 @@
-<?php
+<?php namespace Caouecs\Gumby2;
 
-namespace Caouecs\Gumby2;
 use \HTML;
 
 class Button {
@@ -43,7 +42,7 @@ class Button {
      * @access public
      * @param string $method Method called
      * @param array $params Params of method
-     * @return string
+     * @return \Button
      */
     public static function __callStatic($method, $params = '')
     {
@@ -51,33 +50,31 @@ class Button {
 
         $array_methods = explode("_", $method);
 
-        $array_sizes = array("xlarge", "large", "medium", "small");
+        $array_sizes  = array("xlarge", "large", "medium", "small");
         $array_colors = array("primary", "secondary", "normal", "info", "danger", "warning", "success", "light");
         $array_themes = array("metro", "pretty");
         $array_styles = array("oval", "rounded", "squared", "pillleft", "pillright");
 
-        foreach ($array_methods as $method)
-        {
+        foreach ($array_methods as $method) {
+
             // size
-            if (in_array($method, $array_sizes))
-            {
+            if (in_array($method, $array_sizes)) {
                 $class['size'] = $method;
-            }
+
             // color
-            elseif (in_array($method, $array_colors))
-            {
+            } elseif (in_array($method, $array_colors)) {
                 if ($method == "normal")
                     $method = "default";
+
                 $class['color'] = $method;
-            }
+
             // theme
-            elseif (in_array($method, $array_themes))
-            {
+            } elseif (in_array($method, $array_themes)) {
                 $class['theme'] = $method;
-            }
+
+
             // style
-            elseif (in_array($method, $array_styles))
-            {
+            } elseif (in_array($method, $array_styles)) {
                 if ($method == "pillleft")
                     $method = "pill-left";
                 elseif ($method == "pillright")
@@ -87,8 +84,9 @@ class Button {
             }
         }
 
-        if (!isset($class['color']))
+        if (!isset($class['color'])) {
             $class['color'] = "default";
+        }
 
         array_unshift($params, implode(" ", $class));
 
@@ -102,10 +100,11 @@ class Button {
      * @param string $class Class custom of button
      * @param string $message Message in button
      * @param array $attributes Attributes of button
+     * @return \Button
      */
     public static function custom($class, $message, $attributes = array())
     {
-        return static::show((string) $class, $message, $attributes);
+        return static::show($class, $message, $attributes);
     }
 
 
@@ -116,13 +115,13 @@ class Button {
      * @param string $class Class of button
      * @param string $message Message in button
      * @param array $attributes Attributes of button
-     * @return string
+     * @return \Button
      */
     protected static function show($class, $message = '', $attributes = array())
     {
         $button = new Button;
 
-        $button->class = $class;
+        $button->class = (string) $class;
         $button->message = $message;
         $button->attributes = $attributes;
 
@@ -167,6 +166,7 @@ class Button {
      * Display button
      *
      * @access public
+     * @return strung
      */
     public function __toString()
     {

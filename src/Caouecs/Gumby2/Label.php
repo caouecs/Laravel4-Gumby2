@@ -1,6 +1,4 @@
-<?php
-
-namespace Caouecs\Gumby2;
+<?php namespace Caouecs\Gumby2;
 
 class Label extends Indicator {
 
@@ -13,12 +11,12 @@ class Label extends Indicator {
     protected $type = "label";
 
     /**
-     * Html
+     * Tag
      *
      * @access protected
      * @var string
      */
-    protected $html = "span";
+    protected $tag = "span";
 
     /**
      * Create a new Label
@@ -33,10 +31,11 @@ class Label extends Indicator {
     {
         $indicator = new Label;
 
-        $indicator->class = $class;
+        $indicator->class = (string) $class;
         $indicator->message = $message;
         $indicator->attributes = $attributes;
 
         return $indicator;
     }
+
 }

@@ -1,6 +1,5 @@
-<?php
+<?php namespace Caouecs\Gumby2;
 
-namespace Caouecs\Gumby2;
 use \HTML;
 
 class Tabs {
@@ -14,20 +13,20 @@ class Tabs {
     protected $class = null;
 
     /**
-     * Number of columns of ul for vertical tabs
+     * Number of columns of links for vertical tabs
      *
      * @access protected
      * @var string
      */
-    protected $ul = null;
+    protected $links_columns = null;
 
     /**
-     * Number of columns of div for vertical tabs
+     * Number of columns of content for vertical tabs
      *
      * @access protected
      * @var string
      */
-    protected $div = null;
+    protected $content_columns = null;
 
     /**
      * Elements of tabs
@@ -68,19 +67,12 @@ class Tabs {
             $array_methods[0] = null;
 
         // vertical, you must indicate columns of ul and div
-        if ($array_methods[0] == "vertical")
-        {
-            if (
-                !isset($array_methods[1]) or !isset($array_methods[2]) or
-                !in_array($array_methods[1], $array_columns) or !in_array($array_methods[2], $array_columns)
-            )
-            {
+        if ($array_methods[0] == "vertical") {
+            if ( !isset($array_methods[1]) or !isset($array_methods[2]) or !in_array($array_methods[1], $array_columns) or !in_array($array_methods[2], $array_columns)) {
                 $array_methods[1] = "four";
                 $array_methods[2] = "eight";
             }
-        }
-        else
-        {
+        } else {
             $array_methods[1] = null;
             $array_methods[2] = null;
         }
@@ -96,20 +88,20 @@ class Tabs {
     /**
      * Create a new Tabs
      *
-     * @access private
+     * @access protected
      * @param string $class Name of class
-     * @param string $ul Number of columns of ul for vertical tabs
-     * @param string $div Number of columns of div for vertical tabs
+     * @param string $links_columns Number of columns of links for vertical tabs
+     * @param string $content_columns Number of columns of content for vertical tabs
      * @param array $attributes Attributes of tabs
      * @return \Tabs
      */
-    private static function show($class, $ul = '', $div = '', $attributes = array())
+    protected static function show($class, $links_columns = '', $content_columns = '', $attributes = array())
     {
         $tabs = new Tabs;
 
         $tabs->class = $class;
-        $tabs->ul = $ul;
-        $tabs->div = $div;
+        $tabs->links_columns = $links_columns;
+        $tabs->content_columns = $content_columns;
         $tabs->attributes = $attributes;
 
         return $tabs;
@@ -139,8 +131,9 @@ class Tabs {
      */
     public function __toString()
     {
-        if (empty($this->elements))
+        if (empty($this->elements)) {
             return null;
+        }
 
         $res = null;
 
@@ -151,37 +144,50 @@ class Tabs {
 
         $res .= '<div'.HTML::attributes($attributes).'>
             <ul class="tab-nav';
+
         // vertical
-        if ($this->class == "vertical" && $this->ul != null)
-            $res .= ' '.$this->ul.' columns';
+        if ($this->class == "vertical" && $this->links_columns != null) {
+            $res .= ' '.$this->links_columns.' columns';
+        }
 
         $res .= '">';
 
-        foreach ($this->elements as $element)
-        {
+        // links
+        foreach ($this->elements as $element) {
             $res .= '<li';
+
             // active
-            if ($element['active'] === true)
+            if ($element['active'] === true) {
                 $res .= ' class="active" ';
+            }
+
             $res .= '><a href="#">'.$element['title'].'</a></li>';
         }
 
         $res .= '</ul>';
 
+        // content
         foreach ($this->elements as $element) {
             $res .= '<div class="tab-content';
-            if ($element['active'] === true)
+
+            // active
+            if ($element['active'] === true) {
                 $res .= ' active';
+            }
+
             // vertical
-            if ($this->class == "vertical" && $this->div != null)
-                $res .= ' '.$this->div.' columns'; 
+            if ($this->class == "vertical" && $this->content_columns != null) {
+                $res .= ' '.$this->content_columns.' columns'; 
+            }
+
             $res .= '">'.$element['text'].'</div>';
         }
 
         $res .= '</div>';
 
-        if ($this->class == "vertical")
+        if ($this->class == "vertical") {
             $res .= '</div>';
+        }
 
         return $res;
     }

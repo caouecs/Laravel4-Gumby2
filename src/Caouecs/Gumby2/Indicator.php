@@ -1,6 +1,5 @@
-<?php
+<?php namespace Caouecs\Gumby2;
 
-namespace Caouecs\Gumby2;
 use \HTML;
 
 class Indicator {
@@ -35,7 +34,7 @@ class Indicator {
      * @access public
      * @param string $method Method called
      * @param array $params Params of method
-     * @return string
+     * @return \Indicator
      */
     public static function __callStatic($method, $params)
     {
@@ -57,10 +56,11 @@ class Indicator {
      * @param string $class Class custom of indicator
      * @param string $message Message in indicator
      * @param array $attributes Attributes of indicator
+     * @return \Indicator
      */
     public static function custom($class, $message, $attributes = array())
     {
-        return static::show((string) $class, $message, $attributes);
+        return static::show($class, $message, $attributes);
     }
 
     /**
@@ -73,6 +73,6 @@ class Indicator {
     {
         $attributes = Helpers::add_class($this->attributes, $this->class.' '.$this->type);
 
-        return '<'.$this->html.HTML::attributes($attributes).'>'.$this->message.'</'.$this->html.'>';
+        return '<'.$this->tag.HTML::attributes($attributes).'>'.$this->message.'</'.$this->tag.'>';
     }
 }

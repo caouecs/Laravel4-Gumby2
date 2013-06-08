@@ -1,6 +1,4 @@
-<?php
-
-namespace Caouecs\Gumby2;
+<?php namespace Caouecs\Gumby2;
 
 class Helpers {
 

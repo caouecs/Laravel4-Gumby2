@@ -1,9 +1,8 @@
-<?php
+<?php namespace Caouecs\Gumby2;
 
-namespace Caouecs\Gumby2;
 use \HTML;
 
-class Image extends Core {
+class Image {
 
     /**
      * Class of image
@@ -14,12 +13,12 @@ class Image extends Core {
     protected $class = null;
 
     /**
-     * Url of image
+     * Path of image
      *
      * @access protected
      * @var string
      */
-    protected $url = null;
+    protected $path = null;
 
     /**
      * Alt of image
@@ -70,18 +69,16 @@ class Image extends Core {
 
         $array_methods = explode("_", $method);
 
-        foreach ($array_methods as $method)
-        {
+        foreach ($array_methods as $method) {
+
             // class
-            if (in_array($method, $array_classes))
-            {
+            if (in_array($method, $array_classes)) {
                 if ($method == "polaroid")
                     $method = "photo polaroid";
                 $class['class'] = $method;
-            }
+
             // columns
-            elseif (in_array($method, $array_columns))
-            {
+            } elseif (in_array($method, $array_columns)) {
                 $class['columns'] = $method." columns";
             }
         }
@@ -89,7 +86,20 @@ class Image extends Core {
         array_unshift($params, implode(" ", $class));
 
         return call_user_func_array('static::show', $params);
+    }
 
+    /**
+     * Add a link
+     *
+     * @access public
+     * @param string $link
+     * @return \Object
+     */
+    public function link($link)
+    {
+        $this->link = (string) $link;
+
+        return $this;
     }
 
     /**
@@ -97,14 +107,14 @@ class Image extends Core {
      *
      * @access public
      * @param string $class Class of image
-     * @param string $url Url of image
+     * @param string $path Path of image
      * @param string $alt Alt of image
      * @param array $attributes Attributes of image
      * @return \Image
      */
-    public static function custom($class, $url, $alt = '', $attributes = array())
+    public static function custom($class, $path, $alt = '', $attributes = array())
     {
-        return static::show((string) $class, $url, $alt, $attributes);
+        return static::show($class, $path, $alt, $attributes);
     }
 
     /**
@@ -112,17 +122,17 @@ class Image extends Core {
      *
      * @access protected
      * @param string $class Class of image
-     * @param string $url Url of image
+     * @param string $path Path of image
      * @param string $alt Alt of image
      * @param array $attributes Attributes of image
      * @return \Image
      */
-    protected static function show($class, $url, $alt = '', $attributes = array())
+    protected static function show($class, $path, $alt = '', $attributes = array())
     {
         $image = new Image;
 
-        $image->class = $class;
-        $image->url = $url;
+        $image->class = e($class);
+        $image->path = $path;
         $image->alt = e($alt);
         $image->attributes = $attributes;
 
@@ -130,7 +140,7 @@ class Image extends Core {
     }
 
     /**
-     * Retina
+     * Add gumby-retina to display retina
      *
      * @access public
      * @return \Image
@@ -156,17 +166,23 @@ class Image extends Core {
         $res = '<div'.HTML::attributes($attributes).'>';
 
         // link
-        if ($this->link != null)
+        if ($this->link != null) {
             $res .= '<a href="'.$this->link.'">';
+        }
 
-        $res .= '<img src="'.$this->url.'" alt="'.$this->alt.'" ';
-        if ($this->retina === true)
+        $res .= '<img src="'.$this->path.'" alt="'.$this->alt.'" ';
+
+        // retina
+        if ($this->retina === true) {
             $res .= 'gumby-retina';
+        }
+
         $res .= ' />';
 
         // link
-        if ($this->link != null)
+        if ($this->link != null) {
             $res .= '</a>';
+        }
 
         $res .= '</div>';
 

@@ -1,8 +1,6 @@
-<?php
+<?php namespace Caouecs\Gumby2;
 
-namespace Caouecs\Gumby2;
-
-class Icon extends Core {
+class Icon {
 
     /**
      * Name of icon
@@ -26,7 +24,7 @@ class Icon extends Core {
      * @access public
      * @param string $method Method called
      * @param array $params Params of method
-     * @return string
+     * @return \Icon
      */
     public static function __callStatic($method, $params)
     {
@@ -47,6 +45,20 @@ class Icon extends Core {
         $icon->name = e($name);
 
         return $icon;
+    }
+
+    /**
+     * Add a link
+     *
+     * @access public
+     * @param string $link
+     * @return \Object
+     */
+    public function link($link)
+    {
+        $this->link = (string) $link;
+
+        return $this;
     }
 
     /**

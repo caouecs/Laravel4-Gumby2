@@ -1,6 +1,5 @@
-<?php
+<?php namespace Caouecs\Gumby2;
 
-namespace Caouecs\Gumby2;
 use \HTML;
 
 class Breadcrumb {
@@ -42,12 +41,12 @@ class Breadcrumb {
      *
      * @access public
      * @param string $title Title of element
-     * @param string $url Url of element
+     * @param string $link Link of element
      * @return \Breadcrumb
      */
-    public function add($title, $url = null)
+    public function add($title, $link = null)
     {
-        $this->elements[] = array("title" => e($title), "url" => (string) $url);
+        $this->elements[] = array("title" => e($title), "link" => (string) $link);
 
         return $this;
     }
@@ -60,8 +59,9 @@ class Breadcrumb {
      */
     public function __toString()
     {
-        if (empty($this->elements))
+        if (empty($this->elements)) {
             return null;
+        }
 
         $attributes = Helpers::add_class($this->attributes, "breadcrumb");
 
@@ -70,17 +70,22 @@ class Breadcrumb {
         $count = count($this->elements);
         $i = 0;
 
-        foreach ($this->elements as $element)
-        {
+        foreach ($this->elements as $element) {
+
             $res .= '<li>';
-            // url
-            if (isset($element['url']) && $element['url'] != null)
-                $res .= '<a href="'.$element['url'].'">'.$element['title'].'</a>';
-            else
+
+            // link
+            if (isset($element['link']) && $element['link'] != null) {
+                $res .= '<a href="'.$element['link'].'">'.$element['title'].'</a>';
+            } else {
                 $res .= $element['title'];
+            }
+
             // divider
-            if ($count > ($i+1))
+            if ($count > ($i+1)) {
                 $res .= ' <span class="divider">/</span>';
+            }
+
             $res .= '</li>';
 
             $i++;

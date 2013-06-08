@@ -1,6 +1,4 @@
-<?php
-
-namespace Caouecs\Gumby2;
+<?php namespace Caouecs\Gumby2;
 
 class Alert extends Indicator {
 
@@ -13,12 +11,12 @@ class Alert extends Indicator {
     protected $type = "alert";
 
     /**
-     * Html
+     * Tag
      *
      * @access protected
      * @var string
      */
-    protected $html = "div";
+    protected $tag = "div";
 
     /**
      * Create a new Alert
