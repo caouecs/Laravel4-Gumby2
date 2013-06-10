@@ -20,10 +20,6 @@
       "facade": "Caouecs\Gumby2\Button"
     },
     {
-      "alias": "Form",
-      "facade": "Caouecs\Gumby2\Form"
-    },
-    {
       "alias": "Icon",
       "facade": "Caouecs\Gumby2\Icon"
     },
