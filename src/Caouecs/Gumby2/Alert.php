@@ -68,15 +68,15 @@ class Alert extends Indicator {
     public function __toString()
     {
         // number for close and multi alert
-        $drawer_id = rand(1, 15);
+        $alert_id = rand(1, 15);
 
-        $attributes = Helpers::add_class($this->attributes, $this->class.' '.$this->type.' alert_'.$drawer_id);
+        $attributes = Helpers::add_class($this->attributes, $this->class.' '.$this->type.' alert_'.$alert_id);
 
         $res = '<'.$this->tag.HTML::attributes($attributes).'>';
 
         // close
         if ($this->close === true) {
-            $res .= '<a href="#" gumby-trigger=".alert_'.$drawer_id.'" class="switch close">&times;</a>';
+            $res .= '<a href="#" gumby-trigger=".alert_'.$alert_id.'" class="switch close">&times;</a>';
         }
 
         $res .= $this->message.'</'.$this->tag.'>';
