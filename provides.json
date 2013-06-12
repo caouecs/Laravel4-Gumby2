@@ -1,43 +1,43 @@
 {
   "providers": [
-    "Caouecs\Gumby2\Gumby2ServiceProvider"
+    "Caouecs\\Gumby2\\Gumby2ServiceProvider"
   ],
   "aliases": [
     {
       "alias": "Alert",
-      "facade": "Caouecs\Gumby2\Alert"
+      "facade": "Caouecs\\Gumby2\\Alert"
     },
     {
       "alias": "Badge",
-      "facade": "Caouecs\Gumby2\Badge"
+      "facade": "Caouecs\\Gumby2\\Badge"
     },
     {
       "alias": "Breadcrumb",
-      "facade": "Caouecs\Gumby2\Breadcrumb"
+      "facade": "Caouecs\\Gumby2\\Breadcrumb"
     },
     {
       "alias": "Button",
-      "facade": "Caouecs\Gumby2\Button"
+      "facade": "Caouecs\\Gumby2\\Button"
     },
     {
       "alias": "Icon",
-      "facade": "Caouecs\Gumby2\Icon"
+      "facade": "Caouecs\\Gumby2\\Icon"
     },
     {
       "alias": "Image",
-      "facade": "Caouecs\Gumby2\Image"
+      "facade": "Caouecs\\Gumby2\\Image"
     },
     {
       "alias": "Label",
-      "facade": "Caouecs\Gumby2\Label"
+      "facade": "Caouecs\\Gumby2\\Label"
     },
     {
       "alias": "Tabs",
-      "facade": "Caouecs\Gumby2\Tabs"
+      "facade": "Caouecs\\Gumby2\\Tabs"
     },
     {
       "alias": "Valign",
-      "facade": "Caouecs\Gumby2\Valign"
+      "facade": "Caouecs\\Gumby2\\Valign"
     }
   ]
 }
