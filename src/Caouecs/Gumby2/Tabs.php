@@ -59,12 +59,12 @@ class Tabs {
 
         $array_methods = explode("_", $method);
 
-        // class
         if (!in_array($array_methods[0], $array_classes))
             return null;
 
-        if ($array_methods[0] == "normal")
+        if ($array_methods[0] == "normal") {
             $array_methods[0] = null;
+        }
 
         // vertical, you must indicate columns of ul and div
         if ($array_methods[0] == "vertical") {
@@ -135,9 +135,6 @@ class Tabs {
             return null;
         }
 
-        // attributes
-        $attributes = Helpers::add_class($this->attributes, $this->class." tabs");
-
         // nav
         $nav = '<ul class="tab-nav';
 
@@ -190,6 +187,9 @@ class Tabs {
         if ($this->class == "vertical") {
             $res .= '<div class="row">';
         }
+
+        // attributes
+        $attributes = Helpers::add_class($this->attributes, $this->class." tabs");
 
         $res .= '<div'.HTML::attributes($attributes).'>';
 

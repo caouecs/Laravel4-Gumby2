@@ -4,10 +4,18 @@ use \HTML;
 
 class Button {
 
-   /**
+    /**
+     * Tag of button
+     *
+     * @access protected
+     * @var string
+     */
+    protected $tag = 'div';
+
+    /**
      * Class of button
      *
-     * @access private
+     * @access protected
      * @var string
      */
     protected $class = 'default';
@@ -15,7 +23,7 @@ class Button {
     /**
      * Message in button
      *
-     * @access private
+     * @access protected
      * @var string
      */
     protected $message = null;
@@ -23,7 +31,7 @@ class Button {
     /**
      * Attributes of button
      *
-     * @access private
+     * @access protected
      * @var array
      */
     protected $attributes = array();
@@ -31,7 +39,7 @@ class Button {
     /**
      * Icon of button
      *
-     * @access private
+     * @access protected
      * @var string
      */
     protected $icon = null;
@@ -121,8 +129,8 @@ class Button {
     {
         $button = new Button;
 
-        $button->class = (string) $class;
-        $button->message = $message;
+        $button->class      = (string) $class;
+        $button->message    = $message;
         $button->attributes = $attributes;
 
         return $button;
@@ -140,10 +148,11 @@ class Button {
     {
         $icon = " entypo icon-".e($icon);
 
-        if ($append == true)
+        if ($append == true) {
             $icon .= " icon-left ";
-        else
+        } else {
             $icon .= " icon-right ";
+        }
 
         $this->icon = $icon;
 
@@ -163,6 +172,20 @@ class Button {
     }
 
     /**
+     * Update tag
+     *
+     * @access public
+     * @param string $tag Tag
+     * @return \Button
+     */
+    public function setTag($tag)
+    {
+        $this->tag = e($tag);
+
+        return $this;
+    }
+
+    /**
      * Display button
      *
      * @access public
@@ -172,11 +195,12 @@ class Button {
     {
         $class = $this->class;
 
-        if ($this->icon != null)
+        if ($this->icon != null) {
             $class .= $this->icon;
+        }
 
         $attributes = Helpers::add_class($this->attributes, $class.' btn');
 
-        return '<div'.HTML::attributes($attributes).'>'.$this->message.'</div>';
+        return '<'.$this->tag.HTML::attributes($attributes).'>'.$this->message.'</'.$this->tag.'>';
     }
 }

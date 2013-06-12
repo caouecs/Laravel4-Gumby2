@@ -19,6 +19,22 @@ class Icon {
     protected $link = null;
 
     /**
+     * Attributes of icon
+     *
+     * @access protected
+     * @var array
+     */
+    protected $attributes = array();
+
+    /**
+     * Attributes of link
+     *
+     * @access protected
+     * @var array
+     */
+    protected $link_attributes = array();
+
+    /**
      * Call an icon
      *
      * @access public
@@ -28,7 +44,7 @@ class Icon {
      */
     public static function __callStatic($method, $params)
     {
-        return self::show($method);
+        return self::show($method, $params);
     }
 
     /**
@@ -36,13 +52,15 @@ class Icon {
      *
      * @access public
      * @param string $name Name of icon
+     * @param array $attributes Attributes
      * @return \Icon
      */
-    public static function show($name)
+    public static function show($name, $attributes = array())
     {
         $icon = new Icon;
 
         $icon->name = e($name);
+        $icon->attributes = $attributes;
 
         return $icon;
     }
@@ -52,11 +70,13 @@ class Icon {
      *
      * @access public
      * @param string $link
+     * @param array $link_attributes
      * @return \Object
      */
-    public function link($link)
+    public function link($link, $link_attributes = array())
     {
         $this->link = (string) $link;
+        $this->link_attributes = $link_attributes;
 
         return $this;
     }
@@ -69,9 +89,11 @@ class Icon {
      */
     public function __toString()
     {
-        if ($this->link != null)
-            return '<a href="'.$this->link.'"><i class="icon-'.$this->name.'"></i></a>';
+        $attributes = Helpers::add_class($this->attributes, 'icon-'.$this->name);
 
-        return '<i class="icon-'.$this->name.'"></i>';
+        if ($this->link != null)
+            return '<a href="'.$this->link.'"'.HTML::attributes($this->link_attributes).'><i'.HTML::attributes($attributes).'></i></a>';
+
+        return '<i'.HTML::attributes($attributes).'></i>';
     }
 }

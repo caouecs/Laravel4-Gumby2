@@ -64,6 +64,20 @@ class Indicator {
     }
 
     /**
+     * Update tag
+     *
+     * @access public
+     * @param string $tag Tag
+     * @return \Indicator
+     */
+    public function setTag($tag)
+    {
+        $this->tag = e($tag);
+
+        return $this;
+    }
+
+    /**
      * Display indicator
      *
      * @access public

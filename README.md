@@ -7,21 +7,20 @@ This package includes [Gumby2 Framework](http://www.gumbyframework.com) function
 For the moment
 ---
 
-Just for test
+Just for test, and you need some scss files from https://github.com/caouecs/Gumby/tree/features_more/sass/more for alert with close and for breadcrumbs.
 
 
 Elements
 ---
 
 * Alert
-  * Alert::large_pretty("My text")
+  * Alert::large_pretty("My text")->close()
 * Badge
   * Badge::small_danger("My text")
-* Breadcrumb (not include in Gumby2, you need _breadcrumb.scss)
+* Breadcrumb
   * Breadcrumb::show()->add("Home", "/")->add("News", "/news")->add("My News")
 * Button
   * Button::xlarge_pillleft_warning("My text")
-* Form (not finish)
 * Icon
   * Icon::github()->link("/welcome")
 * Image

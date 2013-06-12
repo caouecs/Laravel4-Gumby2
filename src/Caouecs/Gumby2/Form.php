@@ -4,12 +4,12 @@ class Form extends \Illuminate\Support\Facades\Form {
 
     static public function label($name, $value = null, $options = array())
     {
-        return parent::label($name, $value, Helpers::add_class($options, "inline", "class"));
+        return parent::label($name, $value, Helpers::add_class($options, "inline"));
     }
 
     static public function text($name, $value = null, $options = array())
     {
-        return parent::text($name, $value, Helpers::add_class($options, "wide text input", "class"));
+        return parent::text($name, $value, Helpers::add_class($options, "wide text input"));
     } 
 
     static public function password($name, $options = array())
