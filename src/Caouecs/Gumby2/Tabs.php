@@ -54,7 +54,7 @@ class Tabs {
      */
     public static function __callStatic($method, $params)
     {
-        $array_classes = array("normal", "pill", "vertical");
+        $array_classes = array("normal", "pill", "vertical", "bottom");
         $array_columns = array("one", "two", "three", "four", "five", "six", "seven", "eight", "nine", "ten", "eleven", "twelve", "thirteen", "fourteen", "fifteen", "sixteen");
 
         $array_methods = explode("_", $method);
@@ -135,56 +135,71 @@ class Tabs {
             return null;
         }
 
-        $res = null;
-
+        // attributes
         $attributes = Helpers::add_class($this->attributes, $this->class." tabs");
 
-        if ($this->class == "vertical")
-            $res .= '<div class="row">';
-
-        $res .= '<div'.HTML::attributes($attributes).'>
-            <ul class="tab-nav';
+        // nav
+        $nav = '<ul class="tab-nav';
 
         // vertical
         if ($this->class == "vertical" && $this->links_columns != null) {
-            $res .= ' '.$this->links_columns.' columns';
+           $nav .= ' '.$this->links_columns.' columns';
         }
 
-        $res .= '">';
+        $nav .= '">';
 
         // links
         foreach ($this->elements as $element) {
-            $res .= '<li';
+            $nav .= '<li';
 
             // active
             if ($element['active'] === true) {
-                $res .= ' class="active" ';
+                $nav .= ' class="active" ';
             }
 
-            $res .= '><a href="#">'.$element['title'].'</a></li>';
+            $nav .= '><a href="#">'.$element['title'].'</a></li>';
         }
 
-        $res .= '</ul>';
+        $nav .= '</ul>';
 
         // content
+        $content = null;
         foreach ($this->elements as $element) {
-            $res .= '<div class="tab-content';
+            $content .= '<div class="tab-content';
 
             // active
             if ($element['active'] === true) {
-                $res .= ' active';
+                $content .= ' active';
             }
 
             // vertical
             if ($this->class == "vertical" && $this->content_columns != null) {
-                $res .= ' '.$this->content_columns.' columns'; 
+                $content .= ' '.$this->content_columns.' columns'; 
             }
 
-            $res .= '">'.$element['text'].'</div>';
+            $content .= '">'.$element['text'].'</div>';
         }
 
-        $res .= '</div>';
+        $content .= '</div>';
 
+
+        // return
+        $res = null;
+
+        // vertical
+        if ($this->class == "vertical") {
+            $res .= '<div class="row">';
+        }
+
+        $res .= '<div'.HTML::attributes($attributes).'>';
+
+        if ($this->class == "bottom") {
+            $res .= $content . $nav;
+        } else {
+            $res .= $nav . $content;
+        }
+
+        // vertical
         if ($this->class == "vertical") {
             $res .= '</div>';
         }

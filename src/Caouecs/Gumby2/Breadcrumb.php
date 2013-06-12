@@ -67,9 +67,6 @@ class Breadcrumb {
 
         $res = '<ul'.HTML::attributes($attributes).'>';
 
-        $count = count($this->elements);
-        $i = 0;
-
         foreach ($this->elements as $element) {
 
             $res .= '<li>';
@@ -79,11 +76,6 @@ class Breadcrumb {
                 $res .= '<a href="'.$element['link'].'">'.$element['title'].'</a>';
             } else {
                 $res .= $element['title'];
-            }
-
-            // divider
-            if ($count > ($i+1)) {
-                $res .= ' <span class="divider">/</span>';
             }
 
             $res .= '</li>';
