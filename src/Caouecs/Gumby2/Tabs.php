@@ -55,12 +55,12 @@ class Tabs {
     public static function __callStatic($method, $params)
     {
         $array_classes = array("normal", "pill", "vertical", "bottom");
-        $array_columns = array("one", "two", "three", "four", "five", "six", "seven", "eight", "nine", "ten", "eleven", "twelve", "thirteen", "fourteen", "fifteen", "sixteen");
 
         $array_methods = explode("_", $method);
 
-        if (!in_array($array_methods[0], $array_classes))
+        if (!in_array($array_methods[0], $array_classes)) {
             return null;
+        }
 
         if ($array_methods[0] == "normal") {
             $array_methods[0] = null;
@@ -68,7 +68,7 @@ class Tabs {
 
         // vertical, you must indicate columns of ul and div
         if ($array_methods[0] == "vertical") {
-            if ( !isset($array_methods[1]) or !isset($array_methods[2]) or !in_array($array_methods[1], $array_columns) or !in_array($array_methods[2], $array_columns)) {
+            if ( !isset($array_methods[1]) or !isset($array_methods[2]) or !in_array($array_methods[1], Helpers::$columns) or !in_array($array_methods[2], Helpers::$columns)) {
                 $array_methods[1] = "four";
                 $array_methods[2] = "eight";
             }

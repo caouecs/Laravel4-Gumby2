@@ -77,7 +77,7 @@ class Breadcrumb {
             $res .= '<li'.HTML::attributes($element['attributes']).'>';
 
             // link
-            if (isset($element['link']) && $element['link'] != null) {
+            if (isset($element['link']) and $element['link'] != null) {
                 $res .= '<a href="'.$element['link'].'">'.$element['title'].'</a>';
             } else {
                 $res .= $element['title'];

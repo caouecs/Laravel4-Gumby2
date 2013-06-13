@@ -58,35 +58,34 @@ class Button {
 
         $array_methods = explode("_", $method);
 
-        $array_sizes  = array("xlarge", "large", "medium", "small");
-        $array_colors = array("primary", "secondary", "normal", "info", "danger", "warning", "success", "light");
-        $array_themes = array("metro", "pretty");
         $array_styles = array("oval", "rounded", "squared", "pillleft", "pillright");
 
         foreach ($array_methods as $method) {
 
             // size
-            if (in_array($method, $array_sizes)) {
+            if (in_array($method, Helpers::$sizes)) {
                 $class['size'] = $method;
 
             // color
-            } elseif (in_array($method, $array_colors)) {
-                if ($method == "normal")
+            } elseif (in_array($method, Helpers::$colors)) {
+                if ($method == "normal") {
                     $method = "default";
+                }
 
                 $class['color'] = $method;
 
-            // theme
-            } elseif (in_array($method, $array_themes)) {
-                $class['theme'] = $method;
+            // design
+            } elseif (in_array($method, Helpers::$designs)) {
+                $class['design'] = $method;
 
 
             // style
             } elseif (in_array($method, $array_styles)) {
-                if ($method == "pillleft")
+                if ($method == "pillleft") {
                     $method = "pill-left";
-                elseif ($method == "pillright")
+                } elseif ($method == "pillright") {
                     $method = "pill-right";
+                }
 
                 $class['style'] = $method;
             }

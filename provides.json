@@ -36,6 +36,10 @@
       "facade": "Caouecs\\Gumby2\\Tabs"
     },
     {
+      "alias": "Typography",
+      "facade": "Caouecs\\Gumby2\\Typography"
+    },
+    {
       "alias": "Valign",
       "facade": "Caouecs\\Gumby2\\Valign"
     }

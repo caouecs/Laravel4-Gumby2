@@ -2,44 +2,52 @@
 
 use \HTML;
 
-class Indicator {
+class Typography {
 
     /**
-     * Class of indicator
+     * Class of text
      *
-     * @access private
+     * @access protected
      * @var string
      */
     protected $class = 'default';
 
     /**
-     * Message in indicator
+     * Tag of text
      *
-     * @access private
+     * @access protected
+     * @var string
+     */
+    protected $tag = "p";
+
+    /**
+     * Message
+     *
+     * @access protected
      * @var string
      */
     protected $message = null;
 
     /**
-     * Attributes of indicator
+     * Attributes of text
      *
-     * @access private
+     * @access protected
      * @var array
      */
     protected $attributes = array();
 
     /**
-     * Call an indicator by color
+     * Create an text by color
      *
      * @access public
      * @param string $method Method called
      * @param array $params Params of method
-     * @return \Indicator
+     * @return \Typography
      */
     public static function __callStatic($method, $params)
     {
         // verif if color exists
-        if (!in_array($method, Helpers::$colors) or $method == "normal") {
+        if (!in_array($method, Helpers::$colors) or $method == "normal") {
             $method = "default";
         }
 
@@ -63,11 +71,31 @@ class Indicator {
     }
 
     /**
+     * Create a new Typography
+     *
+     * @access protected
+     * @param string $class Class of text
+     * @param string $message Message in text
+     * @param array $attributes Attributes of text
+     * @return \Typography
+     */
+    protected static function show($class, $message, $attributes = array())
+    {
+        $text = new Typography;
+
+        $text->class = $class;
+        $text->message = $message;
+        $text->attributes = $attributes;
+
+        return $text;
+    }
+
+    /**
      * Update tag
      *
      * @access public
      * @param string $tag Tag
-     * @return \Indicator
+     * @return \Typography
      */
     public function setTag($tag)
     {

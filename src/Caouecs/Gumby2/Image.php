@@ -65,7 +65,6 @@ class Image {
         $class = null;
 
         $array_classes = array("circle", "rounded", "photo", "polaroid");
-        $array_columns = array("one", "two", "three", "four", "five", "six", "seven", "eight", "nine", "ten", "eleven", "twelve", "thirteen", "fourteen", "fifteen", "sixteen");
 
         $array_methods = explode("_", $method);
 
@@ -78,7 +77,7 @@ class Image {
                 $class['class'] = $method;
 
             // columns
-            } elseif (in_array($method, $array_columns)) {
+            } elseif (in_array($method, Helpers::$columns)) {
                 $class['columns'] = $method." columns";
             }
         }
