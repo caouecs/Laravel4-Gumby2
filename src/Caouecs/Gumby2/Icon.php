@@ -1,5 +1,7 @@
 <?php namespace Caouecs\Gumby2;
 
+use \HTML;
+
 class Icon {
 
     /**
@@ -89,7 +91,7 @@ class Icon {
      */
     public function __toString()
     {
-        $attributes = Helpers::add_class($this->attributes, 'icon-'.$this->name);
+        $attributes = Helpers::add_class($this->attributes, 'entypo icon-'.$this->name);
 
         if ($this->link != null)
             return '<a href="'.$this->link.'"'.HTML::attributes($this->link_attributes).'><i'.HTML::attributes($attributes).'></i></a>';

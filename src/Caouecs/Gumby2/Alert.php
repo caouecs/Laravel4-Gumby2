@@ -1,5 +1,7 @@
 <?php namespace Caouecs\Gumby2;
 
+use \HTML;
+
 class Alert extends Indicator {
 
     /**
@@ -80,5 +82,7 @@ class Alert extends Indicator {
         }
 
         $res .= $this->message.'</'.$this->tag.'>';
+
+        return $res;
     }
 }

@@ -79,8 +79,6 @@ class Breadcrumb {
             }
 
             $res .= '</li>';
-
-            $i++;
         }
         $res .= '</ul>';
 
