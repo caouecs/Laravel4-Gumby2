@@ -114,11 +114,17 @@ class Tabs {
      * @param string $title Title of element
      * @param string $text Text of element
      * @param boolean $active If element is active
+     * @param array $attributes Attributes of element
      * @return \Tabs
      */
-    public function add($title, $text = null, $active = false)
+    public function add($title, $text = null, $active = false, $attributes = array())
     {
-        $this->elements[] = array("title" => e($title), "text" => (string) $text, "active" => $active);
+        $this->elements[] = array(
+            "title" => e($title),
+            "text" => (string) $text,
+            "active" => $active,
+            "attributes" => $attributes
+        );
 
         return $this;
     }
@@ -162,22 +168,25 @@ class Tabs {
         // content
         $content = null;
         foreach ($this->elements as $element) {
-            $content .= '<div class="tab-content';
+
+            // class of content
+            $_class = "tab-content";
 
             // active
             if ($element['active'] === true) {
-                $content .= ' active';
+                $_class .= ' active';
             }
 
             // vertical
             if ($this->class == "vertical" && $this->content_columns != null) {
-                $content .= ' '.$this->content_columns.' columns'; 
+                $_class .= ' '.$this->content_columns.' columns'; 
             }
 
-            $content .= '">'.$element['text'].'</div>';
-        }
+            // attributes
+            $_attributes = HTML::attributes($element['attributes'], $_class);
 
-        $content .= '</div>';
+            $content .= '<div'.$_attributes.'">'.$element['text'].'</div>';
+        }
 
 
         // return

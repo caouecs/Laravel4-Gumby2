@@ -42,11 +42,16 @@ class Breadcrumb {
      * @access public
      * @param string $title Title of element
      * @param string $link Link of element
+     * @param array $attributes Attributes of element
      * @return \Breadcrumb
      */
-    public function add($title, $link = null)
+    public function add($title, $link = null, $attributes = array())
     {
-        $this->elements[] = array("title" => e($title), "link" => (string) $link);
+        $this->elements[] = array(
+            "title" => e($title),
+            "link" => (string) $link,
+            "attributes" => $attributes
+        );
 
         return $this;
     }
@@ -69,7 +74,7 @@ class Breadcrumb {
 
         foreach ($this->elements as $element) {
 
-            $res .= '<li>';
+            $res .= '<li'.HTML::attributes($element['attributes']).'>';
 
             // link
             if (isset($element['link']) && $element['link'] != null) {
