@@ -20,6 +20,10 @@
       "facade": "Caouecs\\Gumby2\\Button"
     },
     {
+      "alias": "Definition",
+      "facade": "Caouecs\\Gumby2\\Definition"
+    },
+    {
       "alias": "Icon",
       "facade": "Caouecs\\Gumby2\\Icon"
     },

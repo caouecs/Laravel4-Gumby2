@@ -2,6 +2,11 @@
 
 use \HTML;
 
+/**
+ * Display text
+ *
+ * @todo add lead and fittext
+ */
 class Typography {
 
     /**
