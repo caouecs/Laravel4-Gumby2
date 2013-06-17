@@ -39,7 +39,7 @@ class Indicator {
     public static function __callStatic($method, $params)
     {
         // verif if color exists
-        if (!in_array($method, Helpers::$colors) or $method == "normal") {
+        if (!in_array($method, Helpers::$colors) || $method == "normal") {
             $method = "default";
         }
 
