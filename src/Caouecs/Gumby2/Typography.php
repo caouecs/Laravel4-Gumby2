@@ -102,7 +102,7 @@ class Typography {
      * @param string $tag Tag
      * @return \Typography
      */
-    public function setTag($tag)
+    public function tag($tag)
     {
         $this->tag = e($tag);
 
@@ -117,7 +117,7 @@ class Typography {
      */
     public function __toString()
     {
-        $attributes = Helpers::add_class($this->attributes, $this->class.' '.$this->type);
+        $attributes = Helpers::add_class($this->attributes, 'text-'.$this->class);
 
         return '<'.$this->tag.HTML::attributes($attributes).'>'.$this->message.'</'.$this->tag.'>';
     }
