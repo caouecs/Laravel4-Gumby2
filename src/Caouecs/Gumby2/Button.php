@@ -177,7 +177,7 @@ class Button {
      * @param string $tag Tag
      * @return \Button
      */
-    public function setTag($tag)
+    public function tag($tag)
     {
         $this->tag = e($tag);
 

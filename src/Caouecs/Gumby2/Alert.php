@@ -69,10 +69,16 @@ class Alert extends Indicator {
      */
     public function __toString()
     {
-        // number for close and multi alert
-        $alert_id = rand(1, 15);
+        // class
+        $_class = $this->class.' '.$this->type;
 
-        $attributes = Helpers::add_class($this->attributes, $this->class.' '.$this->type.' alert_'.$alert_id);
+        // close
+        if ($this->close === true) {
+            $alert_id = rand(1, 15);
+            $_class .= ' alert_'.$alert_id;
+        }
+
+        $attributes = Helpers::add_class($this->attributes, $_class);
 
         $res = '<'.$this->tag.HTML::attributes($attributes).'>';
 

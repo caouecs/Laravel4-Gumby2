@@ -69,7 +69,7 @@ class Indicator {
      * @param string $tag Tag
      * @return \Indicator
      */
-    public function setTag($tag)
+    public function tag($tag)
     {
         $this->tag = e($tag);
 
