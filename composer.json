@@ -1,7 +1,7 @@
 {
     "name": "caouecs/gumby2",
     "description": "Gumby2 Framework in Laravel 4",
-    "keywords": ["gumby2", "laravel"],
+    "keywords": ["gumby2", "laravel", "lpm"],
     "license": "MIT",
     "authors": [
         {
