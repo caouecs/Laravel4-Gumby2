@@ -2,7 +2,7 @@
 
 use \HTML;
 
-class Indicator {
+class Indicator extends Core {
 
     /**
      * Class of indicator
@@ -29,12 +29,34 @@ class Indicator {
     protected $attributes = array();
 
     /**
+     * Construct
+     *
+     * @access public
+     * @param string $class Class of indicator
+     * @param string $message Message in indicator
+     * @param array $attributes Attributes of indicator
+     * @return void
+     */
+    public function __construct($class, $message, $attributes = array())
+    {
+        if (ctype_alpha(str_replace(array("-", "_", " "), "", $class))) {
+            $this->class = $class;
+        }
+        
+        $this->message = $message;
+
+        if (!empty($attributes) && is_array($attributes)) {
+            $this->attributes = $attributes;
+        }
+    }
+
+    /**
      * Call an indicator by color
      *
      * @access public
      * @param string $method Method called
      * @param array $params Params of method
-     * @return \Indicator
+     * @return Indicator
      */
     public static function __callStatic($method, $params)
     {
@@ -45,7 +67,7 @@ class Indicator {
 
         array_unshift($params, $method);
 
-        return call_user_func_array('static::show', $params);
+        return call_user_func_array('static::create', $params);
     }
 
     /**
@@ -55,11 +77,11 @@ class Indicator {
      * @param string $class Class custom of indicator
      * @param string $message Message in indicator
      * @param array $attributes Attributes of indicator
-     * @return \Indicator
+     * @return Indicator
      */
     public static function custom($class, $message, $attributes = array())
     {
-        return static::show($class, $message, $attributes);
+        return static::create($class, $message, $attributes);
     }
 
     /**
@@ -67,24 +89,26 @@ class Indicator {
      *
      * @access public
      * @param string $tag Tag
-     * @return \Indicator
+     * @return Indicator
      */
     public function tag($tag)
     {
-        $this->tag = e($tag);
+        if (ctype_alpha($tag)) {
+            $this->tag = $tag;
+        }
 
         return $this;
     }
 
     /**
-     * Display indicator
+     * Return html
      *
      * @access public
      * @return string
      */
-    public function __toString()
+    public function show()
     {
-        $attributes = Helpers::add_class($this->attributes, $this->class.' '.$this->type);
+        $attributes = Helpers::addClass($this->attributes, $this->class.' '.$this->type);
 
         return '<'.$this->tag.HTML::attributes($attributes).'>'.$this->message.'</'.$this->tag.'>';
     }

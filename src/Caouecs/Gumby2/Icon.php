@@ -2,7 +2,7 @@
 
 use \HTML;
 
-class Icon {
+class Icon extends Core {
 
     /**
      * Name of icon
@@ -37,16 +37,25 @@ class Icon {
     protected $link_attributes = array();
 
     /**
-     * Call an icon
+     * Construct
      *
      * @access public
-     * @param string $method Method called
-     * @param array $params Params of method
-     * @return \Icon
+     * @param string $name Name of icon
+     * @param array $attributes Attributes
+     * @return void
+     * @throws Exception
      */
-    public static function __callStatic($method, $params)
+    public function __construct($name, $attributes = array())
     {
-        return self::show($method, $params);
+        if (ctype_alpha(str_replace("-", "", $name))) {
+            $this->name = $name;
+        } else {
+            throw new Exception("Name needed for Icon");
+        }
+
+        if (!empty($attributes) && is_array($attributes)) {
+            $this->attributes = $attributes;
+        }
     }
 
     /**
@@ -55,16 +64,24 @@ class Icon {
      * @access public
      * @param string $name Name of icon
      * @param array $attributes Attributes
-     * @return \Icon
+     * @return Icon
      */
-    public static function show($name, $attributes = array())
+    public static function create($name, $attributes = array())
     {
-        $icon = new Icon;
+        return new Icon($name, $attributes);
+    }
 
-        $icon->name = e($name);
-        $icon->attributes = $attributes;
-
-        return $icon;
+    /**
+     * Call an icon
+     *
+     * @access public
+     * @param string $method Method called
+     * @param array $params Params of method
+     * @return Icon
+     */
+    public static function __callStatic($method, $params)
+    {
+        return self::create($method, $params);
     }
 
     /**
@@ -73,7 +90,7 @@ class Icon {
      * @access public
      * @param string $link
      * @param array $link_attributes
-     * @return \Object
+     * @return Icon
      */
     public function link($link, $link_attributes = array())
     {
@@ -89,9 +106,9 @@ class Icon {
      * @access public
      * @return string
      */
-    public function __toString()
+    public function show()
     {
-        $attributes = Helpers::add_class($this->attributes, 'entypo icon-'.$this->name);
+        $attributes = Helpers::addClass($this->attributes, 'entypo icon-'.$this->name);
 
         if ($this->link != null)
             return '<a href="'.$this->link.'"'.HTML::attributes($this->link_attributes).'><i'.HTML::attributes($attributes).'></i></a>';

@@ -45,7 +45,7 @@ class Helpers {
      * @param string $key Array key to use
      * @return array
      */
-    public static function add_class($array, $value, $key = 'class')
+    public static function addClass($array, $value, $key = 'class')
     {
         $array[$key] = isset($array[$key]) ? $array[$key].' '.$value : $value;
 

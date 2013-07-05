@@ -7,7 +7,7 @@ use \HTML;
  *
  * @todo add lead and fittext
  */
-class Typography {
+class Typography extends Core {
 
     /**
      * Class of text
@@ -42,12 +42,48 @@ class Typography {
     protected $attributes = array();
 
     /**
+     * Construct
+     *
+     * @access public
+     * @param string $class Class of text
+     * @param string $message Message in text
+     * @param array $attributes Attributes of text
+     * @return void
+     */
+    public function __construct($class, $message = null, $attributes = array())
+    {
+        if (ctype_alpha(str_replace(array("-", "_", " "), "", $class))) {
+            $this->class = $class;
+        }
+
+        $this->message = $message;
+
+        if (!empty($attributes) && is_array($attributes)) {
+            $this->attributes = $attributes;
+        }
+    }
+
+    /**
+     * Create a new Typography
+     *
+     * @access protected
+     * @param string $class Class of text
+     * @param string $message Message in text
+     * @param array $attributes Attributes of text
+     * @return Typography
+     */
+    protected static function create($class, $message, $attributes = array())
+    {
+        return new Typography($class, $message, $attributes);
+    }
+
+    /**
      * Create an text by color
      *
      * @access public
      * @param string $method Method called
      * @param array $params Params of method
-     * @return \Typography
+     * @return Typography
      */
     public static function __callStatic($method, $params)
     {
@@ -58,41 +94,21 @@ class Typography {
 
         array_unshift($params, $method);
 
-        return call_user_func_array('static::show', $params);
+        return call_user_func_array('static::create', $params);
     }
 
     /**
-     * Create a custom indicator
+     * Create a custom Typography
      *
      * @access public
-     * @param string $class Class custom of indicator
-     * @param string $message Message in indicator
-     * @param array $attributes Attributes of indicator
-     * @return \Indicator
+     * @param string $class Class custom of typography
+     * @param string $message Message in typography
+     * @param array $attributes Attributes of typography
+     * @return Typography
      */
     public static function custom($class, $message, $attributes = array())
     {
-        return static::show($class, $message, $attributes);
-    }
-
-    /**
-     * Create a new Typography
-     *
-     * @access protected
-     * @param string $class Class of text
-     * @param string $message Message in text
-     * @param array $attributes Attributes of text
-     * @return \Typography
-     */
-    protected static function show($class, $message, $attributes = array())
-    {
-        $text = new Typography;
-
-        $text->class = $class;
-        $text->message = $message;
-        $text->attributes = $attributes;
-
-        return $text;
+        return static::create($class, $message, $attributes);
     }
 
     /**
@@ -100,24 +116,26 @@ class Typography {
      *
      * @access public
      * @param string $tag Tag
-     * @return \Typography
+     * @return Typography
      */
     public function tag($tag)
     {
-        $this->tag = e($tag);
+        if (ctype_alpha($tag)) {
+            $this->tag = $tag;
+        }
 
         return $this;
     }
 
     /**
-     * Display indicator
+     * Display typography
      *
      * @access public
      * @return string
      */
-    public function __toString()
+    public function show()
     {
-        $attributes = Helpers::add_class($this->attributes, 'text-'.$this->class);
+        $attributes = Helpers::addClass($this->attributes, 'text-'.$this->class);
 
         return '<'.$this->tag.HTML::attributes($attributes).'>'.$this->message.'</'.$this->tag.'>';
     }

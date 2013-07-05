@@ -35,24 +35,18 @@ class Alert extends Indicator {
      * @param string $class Class of indicator
      * @param string $message Message in indicator
      * @param array $attributes Attributes of indicator
-     * @return \Alert
+     * @return Alert
      */
-    protected static function show($class, $message, $attributes = array())
+    protected static function create($class, $message, $attributes = array())
     {
-        $indicator = new Alert;
-
-        $indicator->class = $class;
-        $indicator->message = $message;
-        $indicator->attributes = $attributes;
-
-        return $indicator;
+        return new Alert($class, $message, $attributes);
     }
 
     /**
      * Add link for close
      *
      * @access public
-     * @return \Alert
+     * @return Alert
      */
     public function close()
     {
@@ -67,7 +61,7 @@ class Alert extends Indicator {
      * @access public
      * @return string
      */
-    public function __toString()
+    public function show()
     {
         // class
         $_class = $this->class.' '.$this->type;
@@ -78,7 +72,7 @@ class Alert extends Indicator {
             $_class .= ' alert_'.$alert_id;
         }
 
-        $attributes = Helpers::add_class($this->attributes, $_class);
+        $attributes = Helpers::addClass($this->attributes, $_class);
 
         $res = '<'.$this->tag.HTML::attributes($attributes).'>';
 
