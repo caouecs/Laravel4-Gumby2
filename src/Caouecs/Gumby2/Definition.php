@@ -2,7 +2,7 @@
 
 use \HTML;
 
-class Definition {
+class Definition extends Core {
 
     /**
      * Data
@@ -20,6 +20,35 @@ class Definition {
      */
     protected $attributes = array();
 
+    /**
+     * Construct
+     *
+     * @access public
+     * @param array $data Data
+     * @param array $attributes Attributes of dl
+     * @return void
+     */
+    public function __construct(array $data, $attributes = array())
+    {
+        $this->data = $data;
+
+        if (!empty($attributes) && is_array($attributes)) {
+            $this->attributes = $attributes;
+        }
+    }
+
+    /**
+     * Create a new Definition
+     *
+     * @access public
+     * @param array $data Data
+     * @param array $attributes Attributes of dl
+     * @return Definition
+     */
+    public static function create(array $data, $attributes = array())
+    {
+        return new Definition($data, $attributes);
+    }
 
     /**
      * Create a normal description
@@ -27,11 +56,11 @@ class Definition {
      * @access public
      * @param array $data Data
      * @param array $attributes Attributes of dl
-     * @return \Definition
+     * @return Definition
      */
     public static function normal(array $data, $attributes = array())
     {
-        return self::show($data, $attributes);
+        return self::create($data, $attributes);
     }
 
     /**
@@ -40,31 +69,13 @@ class Definition {
      * @access public
      * @param array $data Data
      * @param array $attributes Attributes of dl
-     * @return \Definition
+     * @return Definition
      */
     public static function horizontal(array $data, $attributes = array())
     {
-        $attributes = Helpers::add_class($attributes, "horizontal");
+        $attributes = Helpers::addClass($attributes, "horizontal");
 
-        return self::show($data, $attributes);
-    }
-
-    /**
-     * Create a new Definition
-     *
-     * @access private
-     * @param array $data Data
-     * @param array $attributes Attributes of dl
-     * @return \Definition
-     */
-    private static function show(array $data, $attributes = array())
-    {
-        $definition = new Definition;
-
-        $definition->data = $data;
-        $definition->attributes = $attributes;
-
-        return $definition;
+        return self::create($data, $attributes);
     }
 
     /**
@@ -73,7 +84,7 @@ class Definition {
      * @access public
      * @return string
      */
-    public function __toString()
+    public function show()
     {
         $res = '<dl'.HTML::attributes($this->attributes).'>';
 
@@ -83,6 +94,6 @@ class Definition {
 
         $res .= '</dl>';
 
-        return '<'.$this->tag.HTML::attributes($attributes).'>'.$this->message.'</'.$this->tag.'>';
+        return $res;
     }
 }

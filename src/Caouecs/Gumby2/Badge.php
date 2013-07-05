@@ -25,16 +25,10 @@ class Badge extends Indicator {
      * @param string $class Class of indicator
      * @param string $message Message in indicator
      * @param array $attributes Attributes of indicator
-     * @return \Badge
+     * @return Badge
      */
-    protected static function show($class, $message, $attributes = array())
+    protected static function create($class, $message, $attributes = array())
     {
-        $indicator = new Badge;
-
-        $indicator->class = $class;
-        $indicator->message = $message;
-        $indicator->attributes = $attributes;
-
-        return $indicator;
+        return new Badge($class, $message, $attributes);
     }
 }

@@ -2,7 +2,7 @@
 
 use \HTML;
 
-class Valign {
+class Valign extends Core {
 
     /**
      * Attributes of valign
@@ -29,19 +29,29 @@ class Valign {
     protected $text = array();
 
     /**
+     * Construct
+     *
+     * @access public
+     * @param array $attributes Attributes of valign
+     * @return void
+     */
+    public function __construct($attributes = array())
+    {
+        if (!empty($attributes) && is_array($attributes)) {
+            $this->attributes = $attributes;
+        }
+    }
+
+    /**
      * Create a new Valign
      *
      * @access public
      * @param array $attributes Attributes of valign
-     * @return \Valign
+     * @return Valign
      */
-    public static function show($attributes = array())
+    public static function create($attributes = array())
     {
-        $valign = new Valign;
-
-        $valign->attributes = $attributes;
-
-        return $valign;
+        return new Valign($attributes);
     }
 
     /**
@@ -52,7 +62,7 @@ class Valign {
      * @param string $alt Alt of image
      * @param string $class Class on image
      * @param array $attributes Attributes on image
-     * @return \Valign
+     * @return Valign
      */
     public function img($path, $alt = '', $class = "rounded", $attributes = array())
     {
@@ -67,7 +77,7 @@ class Valign {
      * @access public
      * @param string $text Text
      * @param array $attributes Attributes on text
-     * @return \Valign
+     * @return Valign
      */
     public function text($text, $attributes = array())
     {
@@ -85,13 +95,13 @@ class Valign {
      * @access public
      * @return string
      */
-    public function __toString()
+    public function show()
     {
-        if (empty($this->img) or empty($this->text)) {
+        if (empty($this->img) || empty($this->text)) {
             return null;
         }
 
-        $attributes = Helpers::add_class($this->attributes, "valign row");
+        $attributes = Helpers::addClass($this->attributes, "valign row");
 
         $res = '<article'.HTML::attributes($attributes).'>';
 
