@@ -51,7 +51,7 @@ Displays a button with metro style, rounded, a large size, and with the color or
     
 Displays a button with pretty style, an icon of GitHub and more possibilities.
 
-    Button::pretty_primary("My other text", array("id" => "my_button"))->append("github")->tag("p")
+    Button::pretty_primary("My other text", array("id" => "my_button"))->appendIcon("github")->tag("p")
     <p class="medium pretty primary entypo icon-github icon-left btn" id="my_button">My other text</p>
 
 ## Indicators
@@ -75,7 +75,7 @@ Displays a alert box with close button
 
 You can display a simple breadcrumb.
 
-    Breadcrumb::show()->add("Home", "/")->add("News", "/news")->add("My News")
+    Breadcrumb::create()->add("Home", "/")->add("News", "/news")->add("My News")
     <ul class="breadcrumb"><li><a href="/">Home</a></li><li><a href="/news">News</a></li><li>My News</li></ul>
 
 ## Icons
@@ -151,7 +151,7 @@ Vertically align images and text, with Valign class.
 
 Displays a vertical alignment
 
-    Valign::show()->image("/img/my_image.png")->text("My text")
+    Valign::create()->image("/img/my_image.png")->text("My text")
 
 ---
 

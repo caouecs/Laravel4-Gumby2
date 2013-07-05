@@ -25,17 +25,11 @@ class Label extends Indicator {
      * @param string $class Class of indicator
      * @param string $message Message in indicator
      * @param array $attributes Attributes of indicator
-     * @return \Label
+     * @return Label
      */
-    protected static function show($class, $message, $attributes = array())
+    protected static function create($class, $message, $attributes = array())
     {
-        $indicator = new Label;
-
-        $indicator->class = (string) $class;
-        $indicator->message = $message;
-        $indicator->attributes = $attributes;
-
-        return $indicator;
+        return new Label($class, $message, $attributes);
     }
 
 }

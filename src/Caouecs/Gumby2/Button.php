@@ -2,7 +2,7 @@
 
 use \HTML;
 
-class Button {
+class Button extends Core {
 
     /**
      * Tag of button
@@ -45,14 +45,50 @@ class Button {
     protected $icon = null;
 
     /**
+     * Construct
+     *
+     * @access public
+     * @param string $class Class of button
+     * @param string $message Message in button
+     * @param array $attributes Attributes of button
+     * @return void
+     */
+    public function __construct($class, $message = '', $attributes = array())
+    {
+        if (ctype_alpha(str_replace(array("-", "_", " "), "", $class))) {
+            $this->class = $class;
+        }
+
+        $this->message = $message;
+
+        if (!empty($attributes) && is_array($attributes)) {
+            $this->attributes = $attributes;
+        }
+    }
+
+    /**
+     * Create a new Button
+     *
+     * @access protected
+     * @param string $class Class of button
+     * @param string $message Message in button
+     * @param array $attributes Attributes of button
+     * @return Button
+     */
+    protected static function create($class, $message = '', $attributes = array())
+    {
+        return new Button($class, $message, $attributes);
+    }
+
+    /**
      * Call an button
      *
      * @access public
      * @param string $method Method called
      * @param array $params Params of method
-     * @return \Button
+     * @return Button
      */
-    public static function __callStatic($method, $params = '')
+    public static function __callStatic($method, $params = array())
     {
         $class = null;
 
@@ -97,7 +133,7 @@ class Button {
 
         array_unshift($params, implode(" ", $class));
 
-        return call_user_func_array('static::show', $params);
+        return call_user_func_array('static::create', $params);
     }
 
     /**
@@ -107,32 +143,11 @@ class Button {
      * @param string $class Class custom of button
      * @param string $message Message in button
      * @param array $attributes Attributes of button
-     * @return \Button
+     * @return Button
      */
     public static function custom($class, $message, $attributes = array())
     {
-        return static::show($class, $message, $attributes);
-    }
-
-
-    /**
-     * Create a new Button
-     *
-     * @access protected
-     * @param string $class Class of button
-     * @param string $message Message in button
-     * @param array $attributes Attributes of button
-     * @return \Button
-     */
-    protected static function show($class, $message = '', $attributes = array())
-    {
-        $button = new Button;
-
-        $button->class      = (string) $class;
-        $button->message    = $message;
-        $button->attributes = $attributes;
-
-        return $button;
+        return static::create($class, $message, $attributes);
     }
 
     /**
@@ -141,19 +156,21 @@ class Button {
      * @access public
      * @param string $icon Name of icon
      * @param boolean $append Situation of icon (true = before, false = after)
-     * @return \Button
+     * @return Button
      */
-    public function append($icon, $append = true)
+    public function appendIcon($icon, $append = true)
     {
-        $icon = " entypo icon-".e($icon);
+        if (ctype_alpha(str_replace("-", "", $icon))) {
+            $icon = " entypo icon-".e($icon);
 
-        if ($append == true) {
-            $icon .= " icon-left ";
-        } else {
-            $icon .= " icon-right ";
+            if ($append == true) {
+                $icon .= " icon-left ";
+            } else {
+                $icon .= " icon-right ";
+            }
+
+            $this->icon = $icon;
         }
-
-        $this->icon = $icon;
 
         return $this;
     }
@@ -163,11 +180,11 @@ class Button {
      *
      * @access public
      * @param string $icon Name of icon
-     * @return \Button
+     * @return Button
      */
-    public function prepend($icon)
+    public function prependIcon($icon)
     {
-        return $this->append($icon, false);
+        return $this->appendIcon($icon, false);
     }
 
     /**
@@ -175,11 +192,13 @@ class Button {
      *
      * @access public
      * @param string $tag Tag
-     * @return \Button
+     * @return Button
      */
     public function tag($tag)
     {
-        $this->tag = e($tag);
+        if (ctype_alpha($tag)) {
+            $this->tag = $tag;
+        }
 
         return $this;
     }
@@ -188,9 +207,9 @@ class Button {
      * Display button
      *
      * @access public
-     * @return strung
+     * @return string
      */
-    public function __toString()
+    public function show()
     {
         $class = $this->class;
 
@@ -198,7 +217,7 @@ class Button {
             $class .= $this->icon;
         }
 
-        $attributes = Helpers::add_class($this->attributes, $class.' btn');
+        $attributes = Helpers::addClass($this->attributes, $class.' btn');
 
         return '<'.$this->tag.HTML::attributes($attributes).'>'.$this->message.'</'.$this->tag.'>';
     }

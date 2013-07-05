@@ -2,7 +2,7 @@
 
 use \HTML;
 
-class Breadcrumb {
+class Breadcrumb extends Core {
 
     /**
      * Elements of breadcrumb
@@ -21,19 +21,29 @@ class Breadcrumb {
     protected $attributes = array();
 
     /**
+     * Construct
+     * 
+     * @access public
+     * @param array $attributes Attributes of breadcrumb
+     * @return void
+     */
+    public function __construct($attributes = array())
+    {
+        if (!empty($attributes) && is_array($attributes)) {
+            $this->attributes = $attributes;
+        }
+    }
+
+    /**
      * Create a new Breadcrumb
      *
      * @access public
      * @param array $attributes Attributes of breadcrumb
-     * @return \Breadcrumb
+     * @return Breadcrumb
      */
-    public static function show($attributes = array())
+    public static function create($attributes = array())
     {
-        $breadcrumb = new Breadcrumb;
-
-        $breadcrumb->attributes = $attributes;
-
-        return $breadcrumb;
+        return new Breadcrumb($attributes);
     }
 
     /**
@@ -43,7 +53,7 @@ class Breadcrumb {
      * @param string $title Title of element
      * @param string $link Link of element
      * @param array $attributes Attributes of element
-     * @return \Breadcrumb
+     * @return Breadcrumb
      */
     public function add($title, $link = null, $attributes = array())
     {
@@ -62,13 +72,13 @@ class Breadcrumb {
      * @access public
      * @return string
      */
-    public function __toString()
+    public function show()
     {
         if (empty($this->elements)) {
             return null;
         }
 
-        $attributes = Helpers::add_class($this->attributes, "breadcrumb");
+        $attributes = Helpers::addClass($this->attributes, "breadcrumb");
 
         $res = '<ul'.HTML::attributes($attributes).'>';
 

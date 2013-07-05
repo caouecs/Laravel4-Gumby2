@@ -2,7 +2,7 @@
 
 use \HTML;
 
-class Image {
+class Image extends Core {
 
     /**
      * Class of image
@@ -53,6 +53,55 @@ class Image {
     protected $link = null;
 
     /**
+     * Construct
+     *
+     * @access public
+     * @param string $class Class of image
+     * @param string $path Path of image
+     * @param string $alt Alt of image
+     * @param array $attributes Attributes of image
+     * @return void
+     * @throws Exception
+     */
+    public function __construct($class, $path, $alt = '', $attributes = array())
+    {
+        if (ctype_alpha(str_replace("-", "", $class))) {
+            $this->class = $class;
+        } else {
+            throw new Exception("Class needed for Image");
+        }
+
+        $this->path = $path;
+
+        $this->alt = e($alt);
+
+        if (!empty($attributes) && is_array($attributes)) {
+            $this->attributes = $attributes;
+        }
+    }
+
+    /**
+     * Create a new image
+     *
+     * @access protected
+     * @param string $class Class of image
+     * @param string $path Path of image
+     * @param string $alt Alt of image
+     * @param array $attributes Attributes of image
+     * @return Image
+     * @throws Exception
+     */
+    protected static function create($class, $path, $alt = '', $attributes = array())
+    {
+        $array_classes = array("circle", "rounded", "photo", "polaroid");
+        if (in_array($class, $array_classes)) {
+            return new Image($class, $path, $alt, $attributes);
+        }
+
+        throw new Exception("Class valid needed for Image");
+    }
+
+    /**
      * Call an image
      *
      * @access public
@@ -84,7 +133,7 @@ class Image {
 
         array_unshift($params, implode(" ", $class));
 
-        return call_user_func_array('static::show', $params);
+        return call_user_func_array('static::create', $params);
     }
 
     /**
@@ -92,7 +141,7 @@ class Image {
      *
      * @access public
      * @param string $link
-     * @return \Object
+     * @return Image
      */
     public function link($link)
     {
@@ -109,40 +158,18 @@ class Image {
      * @param string $path Path of image
      * @param string $alt Alt of image
      * @param array $attributes Attributes of image
-     * @return \Image
+     * @return Image
      */
     public static function custom($class, $path, $alt = '', $attributes = array())
     {
-        return static::show($class, $path, $alt, $attributes);
-    }
-
-    /**
-     * Create a new image
-     *
-     * @access protected
-     * @param string $class Class of image
-     * @param string $path Path of image
-     * @param string $alt Alt of image
-     * @param array $attributes Attributes of image
-     * @return \Image
-     */
-    protected static function show($class, $path, $alt = '', $attributes = array())
-    {
-        $image = new Image;
-
-        $image->class = e($class);
-        $image->path = $path;
-        $image->alt = e($alt);
-        $image->attributes = $attributes;
-
-        return $image;
+        return new Image($class, $path, $alt, $attributes);
     }
 
     /**
      * Add gumby-retina to display retina
      *
      * @access public
-     * @return \Image
+     * @return Image
      */
     public function retina()
     {
@@ -157,10 +184,10 @@ class Image {
      * @access public
      * @return string
      */
-    public function __toString()
+    public function show()
     {
-
-        $attributes = Helpers::add_class($this->attributes, $this->class." image");
+        // attributes
+        $attributes = Helpers::addClass($this->attributes, $this->class." image");
 
         $res = '<div'.HTML::attributes($attributes).'>';
 
