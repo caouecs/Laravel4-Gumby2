@@ -2,13 +2,21 @@
     "name": "caouecs/gumby2",
     "description": "Gumby2 Framework in Laravel 4",
     "keywords": ["gumby2", "laravel", "lpm"],
+    "homepage": "https://github.com/caouecs/Laravel4-Gumby2",
     "license": "MIT",
     "authors": [
         {
             "name": "caouecs",
-            "email": "caouecs@caouecs.net"
+            "email": "caouecs@caouecs.net",
+            "role": "Developer",
+            "homepage": "https://github.com/caouecs"
         }
     ],
+    "support": {
+    	"email": "caouecs@caouecs.net",
+    	"issues": "https://github.com/caouecs/Laravel4-Gumby2/issues",
+    	"source": "https://github.com/caouecs/Laravel4-Gumby2"
+    },
     "require": {
         "php": ">=5.3.0",
         "illuminate/support": "4.0.x"
