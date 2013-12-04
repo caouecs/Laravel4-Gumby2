@@ -19,6 +19,8 @@ class Gumby2ServiceProvider extends ServiceProvider {
 	public function boot()
 	{
 		$this->package('caouecs/gumby2');
+
+        include __DIR__.'/../../routes.php';
 	}
 
 	/**
