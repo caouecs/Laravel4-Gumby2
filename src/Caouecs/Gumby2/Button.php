@@ -135,10 +135,12 @@ class Button extends Core {
             }
         }
 
+        // color by default if not defined
         if (!isset($class['color'])) {
             $class['color'] = "default";
         }
 
+        // size by default if not defined
         if (!isset($class['size'])) {
             $class['size'] = "medium";
         }

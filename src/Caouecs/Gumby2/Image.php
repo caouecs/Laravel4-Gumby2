@@ -65,10 +65,8 @@ class Image extends Core {
      */
     public function __construct($class, $path, $alt = '', $attributes = array())
     {
-        if (ctype_alpha(str_replace("-", "", $class))) {
+        if (ctype_alpha(str_replace(array("-", "_", " "), "", $class))) {
             $this->class = $class;
-        } else {
-            throw new Exception("Class needed for Image");
         }
 
         $this->path = $path;
@@ -93,12 +91,7 @@ class Image extends Core {
      */
     protected static function create($class, $path, $alt = '', $attributes = array())
     {
-        $array_classes = array("circle", "rounded", "photo", "polaroid");
-        if (in_array($class, $array_classes)) {
-            return new Image($class, $path, $alt, $attributes);
-        }
-
-        throw new Exception("Class valid needed for Image");
+        return new Image($class, $path, $alt, $attributes);
     }
 
     /**

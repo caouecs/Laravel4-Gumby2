@@ -50,7 +50,7 @@ class Icon extends Core {
         if (ctype_alpha(str_replace("-", "", $name))) {
             $this->name = $name;
         } else {
-            throw new Exception("Name needed for Icon");
+            throw new \Exception("Name needed for Icon");
         }
 
         if (!empty($attributes) && is_array($attributes)) {
