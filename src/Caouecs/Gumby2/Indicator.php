@@ -29,6 +29,14 @@ class Indicator extends Core {
     protected $attributes = array();
 
     /**
+     * Link of button
+     *
+     * @access protected
+     * @var string
+     */
+    protected $link = null;
+
+    /**
      * Construct
      *
      * @access public
@@ -101,6 +109,20 @@ class Indicator extends Core {
     }
 
     /**
+     * Add link to message
+     *
+     * @access public
+     * @param string $url Url of link
+     * @return Button
+     */
+    public function link($url)
+    {
+        $this->link = $url;
+
+        return $this;
+    }
+
+    /**
      * Return html
      *
      * @access public
@@ -110,6 +132,13 @@ class Indicator extends Core {
     {
         $attributes = Helpers::addClass($this->attributes, $this->class.' '.$this->type);
 
-        return '<'.$this->tag.HTML::attributes($attributes).'>'.$this->message.'</'.$this->tag.'>';
+        // link
+        if ($this->link != null) {
+            $_message = '<a href="'.$this->link.'">'.$this->message.'</a>';
+        } else {
+            $_message = $this->message;
+        }
+
+        return '<'.$this->tag.HTML::attributes($attributes).'>'.$_message.'</'.$this->tag.'>';
     }
 }

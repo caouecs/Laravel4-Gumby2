@@ -68,7 +68,7 @@ class Alert extends Indicator {
 
         // close
         if ($this->close === true) {
-            $alert_id = rand(1, 15);
+            $alert_id = rand(10, 1000);
             $_class .= ' alert_'.$alert_id;
         }
 

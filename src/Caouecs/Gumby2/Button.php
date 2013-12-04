@@ -45,6 +45,14 @@ class Button extends Core {
     protected $icon = null;
 
     /**
+     * Link of button
+     *
+     * @access protected
+     * @var string
+     */
+    protected $link = null;
+
+    /**
      * Construct
      *
      * @access public
@@ -127,8 +135,14 @@ class Button extends Core {
             }
         }
 
+        // color by default if not defined
         if (!isset($class['color'])) {
             $class['color'] = "default";
+        }
+
+        // size by default if not defined
+        if (!isset($class['size'])) {
+            $class['size'] = "medium";
         }
 
         array_unshift($params, implode(" ", $class));
@@ -188,6 +202,20 @@ class Button extends Core {
     }
 
     /**
+     * Add link to message
+     *
+     * @access public
+     * @param string $url Url of link
+     * @return Button
+     */
+    public function link($url)
+    {
+        $this->link = $url;
+
+        return $this;
+    }
+
+    /**
      * Update tag
      *
      * @access public
@@ -217,8 +245,15 @@ class Button extends Core {
             $class .= $this->icon;
         }
 
+        // link
+        if ($this->link != null) {
+            $_message = '<a href="'.$this->link.'">'.$this->message.'</a>';
+        } else {
+            $_message = $this->message;
+        }
+
         $attributes = Helpers::addClass($this->attributes, $class.' btn');
 
-        return '<'.$this->tag.HTML::attributes($attributes).'>'.$this->message.'</'.$this->tag.'>';
+        return '<'.$this->tag.HTML::attributes($attributes).'>'.$_message.'</'.$this->tag.'>';
     }
 }
