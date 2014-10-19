@@ -9,16 +9,16 @@ This package is available through Packagist and Composer.
 
 Add `"caouecs/gumby2": "dev-master"` to your composer.json or run `composer require caouecs/gumby2`. Then you have to add `"Caouecs\Gumby2\Gumby2ServiceProvider"` to your list of providers in your `app/config/app.php`, and a big list of elements for aliases :
 
-    'Alert'			  => 'Caouecs\Gumby2\Alert',
-    'Badge'			  => 'Caouecs\Gumby2\Badge',
-    'Breadcrumb'	  => 'Caouecs\Gumby2\Breadcrumb',
-	'Button'		  => 'Caouecs\Gumby2\Button',
-	'Icon'			  => 'Caouecs\Gumby2\Icon',
-	'Image'			  => 'Caouecs\Gumby2\Image',
-	'Label'			  => 'Caouecs\Gumby2\Label',
-	'Tabs'			  => 'Caouecs\Gumby2\Tabs',
-	'Typography'	  => 'Caouecs\Gumby2\Typography',
-	'Valign'		  => 'Caouecs\Gumby2\Valign'
+    'Alert'           => 'Caouecs\Gumby2\Alert',
+    'Badge'           => 'Caouecs\Gumby2\Badge',
+    'Breadcrumb'      => 'Caouecs\Gumby2\Breadcrumb',
+    'Button'          => 'Caouecs\Gumby2\Button',
+    'Icon'            => 'Caouecs\Gumby2\Icon',
+    'Image'           => 'Caouecs\Gumby2\Image',
+    'Label'           => 'Caouecs\Gumby2\Label',
+    'Tabs'            => 'Caouecs\Gumby2\Tabs',
+    'Typography'      => 'Caouecs\Gumby2\Typography',
+    'Valign'          => 'Caouecs\Gumby2\Valign'
 
 So, I recommend you use [Package Installer](https://github.com/rtablada/package-installer), Laravel4-Gumby2 has a valid provides.json file. After installation of Package Installer, just run `php artisan package:install caouecs/gumby2` ; the lists of providers and aliases will be up-to-date.
 
