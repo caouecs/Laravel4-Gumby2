@@ -89,13 +89,13 @@ class Icon extends Core {
      *
      * @access public
      * @param string $link
-     * @param array $link_attributes
+     * @param array $linkAttributes
      * @return Icon
      */
-    public function link($link, $link_attributes = array())
+    public function link($link, $linkAttributes = array())
     {
         $this->link = (string) $link;
-        $this->link_attributes = $link_attributes;
+        $this->link_attributes = $linkAttributes;
 
         return $this;
     }

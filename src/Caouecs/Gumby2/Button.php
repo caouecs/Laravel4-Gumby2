@@ -105,24 +105,18 @@ class Button extends Core {
         $array_styles = array("oval", "rounded", "squared", "pillleft", "pillright");
 
         foreach ($array_methods as $method) {
-
             // size
             if (in_array($method, Helpers::$sizes)) {
                 $class['size'] = $method;
-
             // color
             } elseif (in_array($method, Helpers::$colors)) {
                 if ($method == "normal") {
                     $method = "default";
                 }
-
                 $class['color'] = $method;
-
             // design
             } elseif (in_array($method, Helpers::$designs)) {
                 $class['design'] = $method;
-
-
             // style
             } elseif (in_array($method, $array_styles)) {
                 if ($method == "pillleft") {
@@ -136,14 +130,10 @@ class Button extends Core {
         }
 
         // color by default if not defined
-        if (!isset($class['color'])) {
-            $class['color'] = "default";
-        }
+        $class['color'] = array_get($class, "color", "default");
 
         // size by default if not defined
-        if (!isset($class['size'])) {
-            $class['size'] = "medium";
-        }
+        $class['size'] = array_get($class, "size", "medium");
 
         array_unshift($params, implode(" ", $class));
 

@@ -18,7 +18,7 @@ class Tabs extends Core {
      * @access protected
      * @var string
      */
-    protected $links_columns = null;
+    protected $linksColumns = null;
 
     /**
      * Number of columns of content for vertical tabs
@@ -26,7 +26,7 @@ class Tabs extends Core {
      * @access protected
      * @var string
      */
-    protected $content_columns = null;
+    protected $contentColumns = null;
 
     /**
      * Elements of tabs
@@ -49,24 +49,25 @@ class Tabs extends Core {
      *
      * @access public
      * @param string $class Name of class
-     * @param string $links_columns Number of columns of links for vertical tabs
-     * @param string $content_columns Number of columns of content for vertical tabs
+     * @param string $linksColumns Number of columns of links for vertical tabs
+     * @param string $contentColumns Number of columns of content for vertical tabs
      * @param array $attributes Attributes of tabs
      * @return void
      */
-    public function __construct($class, $links_columns = '', $content_columns = '', $attributes = array())
+    public function __construct($class, $linksColumns = '', $contentColumns = '', $attributes = array())
     {
         if (ctype_alpha(str_replace(array("-", "_", " "), "", $class))) {
             $this->class = $class;
         }
         
         if (str_contains($class, "vertical")) {
-            if (!empty($links_columns) && !empty($content_columns) && ctype_alpha($links_columns) && ctype_alpha($content_columns)) {
-                $this->links_columns = $links_columns;
-                $this->content_columns = $content_columns;
+            if (!empty($linksColumns) && !empty($contentColumns) && ctype_alpha($linksColumns)
+                && ctype_alpha($contentColumns)) {
+                $this->linksColumns = $linksColumns;
+                $this->contentColumns = $contentColumns;
             } else {
-                $this->links_columns = "four";
-                $this->content_columns = "eight";
+                $this->linksColumns = "four";
+                $this->contentColumns = "eight";
             }
         }
 
@@ -80,14 +81,14 @@ class Tabs extends Core {
      *
      * @access protected
      * @param string $class Name of class
-     * @param string $links_columns Number of columns of links for vertical tabs
-     * @param string $content_columns Number of columns of content for vertical tabs
+     * @param string $linksColumns Number of columns of links for vertical tabs
+     * @param string $contentColumns Number of columns of content for vertical tabs
      * @param array $attributes Attributes of tabs
      * @return Tabs
      */
-    protected static function create($class, $links_columns = '', $content_columns = '', $attributes = array())
+    protected static function create($class, $linksColumns = '', $contentColumns = '', $attributes = array())
     {
-        return new Tabs($class, $links_columns, $content_columns, $attributes);
+        return new Tabs($class, $linksColumns, $contentColumns, $attributes);
     }
 
     /**
@@ -114,7 +115,9 @@ class Tabs extends Core {
 
         // vertical, you must indicate columns of ul and div
         if ($array_methods[0] == "vertical") {
-            if ( !isset($array_methods[1]) or !isset($array_methods[2]) or !in_array($array_methods[1], Helpers::$columns) or !in_array($array_methods[2], Helpers::$columns)) {
+            if (!isset($array_methods[1]) or !isset($array_methods[2]) or
+                !in_array($array_methods[1], Helpers::$columns) or
+                !in_array($array_methods[2], Helpers::$columns)) {
                 $array_methods[1] = "four";
                 $array_methods[2] = "eight";
             }
@@ -169,12 +172,14 @@ class Tabs extends Core {
         $nav = '<ul class="tab-nav';
 
         // vertical
-        if ($this->class == "vertical" && $this->links_columns != null) {
-           $nav .= ' '.$this->links_columns.' columns';
+        if ($this->class == "vertical" && $this->linksColumns != null) {
+           $nav .= ' '.$this->linksColumns.' columns';
         }
 
         $nav .= '">';
 
+        // content
+        $content = null;
         // links
         foreach ($this->elements as $element) {
             $nav .= '<li';
@@ -185,13 +190,6 @@ class Tabs extends Core {
             }
 
             $nav .= '><a href="#">'.$element['title'].'</a></li>';
-        }
-
-        $nav .= '</ul>';
-
-        // content
-        $content = null;
-        foreach ($this->elements as $element) {
 
             // class of content
             $_class = "tab-content";
@@ -202,8 +200,8 @@ class Tabs extends Core {
             }
 
             // vertical
-            if ($this->class == "vertical" && $this->content_columns != null) {
-                $_class .= ' '.$this->content_columns.' columns'; 
+            if ($this->class == "vertical" && $this->contentColumns != null) {
+                $_class .= ' '.$this->contentColumns.' columns'; 
             }
 
             // attributes
@@ -211,6 +209,8 @@ class Tabs extends Core {
 
             $content .= '<div'.HTML::attributes($_attributes).'>'.$element['text'].'</div>';
         }
+
+        $nav .= '</ul>';
 
 
         // return
